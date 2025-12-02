@@ -19,12 +19,10 @@ services:
     image: wordpress
     env_file:
       - .env
-    secrets:
+    # secrets:
 
     depends_on:
       - mariadb
-    envirnments:
-      var:${WORDPRESS_DB_USER}
     volumes:
       - wordpress_data:/var/www/html
     networks:
