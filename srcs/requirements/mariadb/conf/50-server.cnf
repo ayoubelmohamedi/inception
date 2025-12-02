@@ -1,0 +1,37 @@
+#
+# MariaDB Server Configuration
+#
+
+[mysqld]
+
+# Basic Settings
+user                    = mysql
+pid-file                = /var/run/mysqld/mysqld.pid
+socket                  = /var/run/mysqld/mysqld.sock
+port                    = 3306
+datadir                 = /var/lib/mysql
+
+# Network Settings
+bind-address            = 0.0.0.0
+max_connections         = 151
+
+# Character Set
+character-set-server    = utf8mb4
+collation-server        = utf8mb4_unicode_ci
+
+# InnoDB Settings
+innodb_buffer_pool_size = 256M
+innodb_log_file_size    = 64M
+innodb_flush_method     = O_DIRECT
+
+# Logging
+general_log             = 0
+log_error               = /var/log/mysql/error.log
+slow_query_log          = 0
+
+# Query Cache (disabled in MariaDB 10.6+)
+query_cache_size        = 0
+query_cache_type        = 0
+
+# Safety
+skip-name-resolve
