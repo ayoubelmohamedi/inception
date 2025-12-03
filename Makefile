@@ -19,6 +19,9 @@ clean:
     @# Optional: Clean up data folders (be careful!)
     @# rm -rf $(DATA_PATH)
 
+delete_data:
+    @rm -rf $(DATA_PATH)
+
 re: clean all
 
 .PHONY: all down clean re

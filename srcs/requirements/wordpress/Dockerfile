@@ -22,6 +22,11 @@ RUN curl -o wordpress.tar.gz https://wordpress.org/latest.tar.gz \
     && tar -xzf wordpress.tar.gz --strip-components=1 \
     && rm wordpress.tar.gz
 
+# Install WP-CLI
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+    && chmod +x wp-cli.phar \
+    && mv wp-cli.phar /usr/local/bin/wp
+
 # Create log file for PHP errors
 RUN touch /var/log/php_errors.log && chown www-data:www-data /var/log/php_errors.log
 

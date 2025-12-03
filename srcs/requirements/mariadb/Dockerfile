@@ -11,7 +11,6 @@ RUN mkdir -p /var/run/mysqld && \
 
 COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
-COPY tools/init.sql /tmp/init.sql
 COPY tools/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
 # Make entrypoint executable
