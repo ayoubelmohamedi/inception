@@ -1,27 +1,27 @@
 NAME = inception
-
-# Define the path variables (you can change this for the VM later)
 DATA_PATH = $(HOME)/data
 
 all:
-    @# 1. Create the directories on the host machine
-    @mkdir -p $(DATA_PATH)/wordpress
-    @mkdir -p $(DATA_PATH)/mariadb
-    
-    @# 2. Start Docker Compose
-    @docker-compose -f srcs/docker-compose.yml up -d --build
+	@mkdir -p $(DATA_PATH)/wordpress $(DATA_PATH)/mariadb
+	@docker-compose -f srcs/docker-compose.yml up -d --build
 
 down:
-    @docker-compose -f srcs/docker-compose.yml down
+	@docker-compose -f srcs/docker-compose.yml down
 
 clean:
-    @docker-compose -f srcs/docker-compose.yml down -v
-    @# Optional: Clean up data folders (be careful!)
-    @# rm -rf $(DATA_PATH)
+	@docker-compose -f srcs/docker-compose.yml down -v
 
 delete_data:
-    @rm -rf $(DATA_PATH)
+	@rm -rf $(DATA_PATH)
 
-re: clean all
+fclean: clean delete_data
 
-.PHONY: all down clean re
+re: fclean all
+
+logs:
+	@docker-compose -f srcs/docker-compose.yml logs -f
+
+ps:
+	@docker-compose -f srcs/docker-compose.yml ps
+
+.PHONY: all down clean delete_data fclean re logs ps
