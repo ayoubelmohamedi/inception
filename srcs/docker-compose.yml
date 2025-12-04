@@ -7,8 +7,8 @@ services:
     image: mariadb
     env_file:
       - .env
-    # volumes:
-    #   - mariadb_data:/var/lib/mysql
+    volumes:
+      - mariadb_data:/var/lib/mysql
     networks:
       - inception
     restart: always
@@ -44,12 +44,12 @@ services:
     restart: always
 
 volumes:
-#   mariadb_data:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       o: bind
-#       device: /Users/macbookpro/data/mariadb
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /Users/macbookpro/data/mariadb
 
   wordpress_data:
     driver: local
