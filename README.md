@@ -51,7 +51,7 @@ Docker rm -f «  names of containers …»
 Access : 
 docker exec -it cool_jemison mariadb -u root -p
 
-Docker compose :
+## Docker compose :
 
 // run with build to avoid cache 
 // preferable with -d for detach mode .
@@ -91,7 +91,7 @@ docker compose up --build --force-recreate
 Check if has volume docker inspect -f '{{ .Mounts }}' <container name>
 
 
-Cleanups to watch for: 
+## Cleanups to watch for: 
 {{{
 Ghost are layers replaced by newer build. No longer needed, yet take space.
 
