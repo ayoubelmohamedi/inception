@@ -3,7 +3,6 @@ set -eu
 
 echo "Starting WordPress setup..."
 
-# 1. Wait for MariaDB to be ready
 echo "Waiting for MariaDB..."
 until mysqladmin ping -h "$WORDPRESS_DB_HOST" --silent; do
     echo -n "."
@@ -11,11 +10,9 @@ until mysqladmin ping -h "$WORDPRESS_DB_HOST" --silent; do
 done
 echo "MariaDB is ready!"
 
-# 2. Check if WordPress is already configured
 if [ ! -f /var/www/html/wp-config.php ]; then
     echo "Creating wp-config.php..."
     
-    # Create wp-config.php using WP-CLI
     wp config create \
         --dbname="$WORDPRESS_DB_NAME" \
         --dbuser="$WORDPRESS_DB_USER" \
@@ -27,7 +24,6 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     echo "wp-config.php created."
 fi
 
-# 3. Install WordPress if not already installed
 if ! wp core is-installed --path=/var/www/html --allow-root 2>/dev/null; then
     echo "Installing WordPress..."
     
@@ -43,7 +39,6 @@ if ! wp core is-installed --path=/var/www/html --allow-root 2>/dev/null; then
 
     echo "WordPress installed."
 
-    # 4. Create a second user (editor role)
     if [ -n "$WP_USER" ] && [ -n "$WP_USER_PASSWORD" ]; then
         echo "Creating additional user..."
         wp user create "$WP_USER" "editor@$DOMAIN_NAME" \
@@ -57,10 +52,8 @@ else
     echo "WordPress is already installed."
 fi
 
-# Fix permissions
 chown -R www-data:www-data /var/www/html
 
 echo "WordPress setup complete!"
 
-# Execute the CMD from Dockerfile (php-fpm)
 exec "$@"
